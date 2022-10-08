@@ -1,0 +1,144 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color: white;">Admin Panel</h1>
+        <div class="d-flex">
+            <button (click)= "clickAddEmployee()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success mx-4">Add User</button>
+            <button routerLink="/dashboard" type="button" class="btn btn-success">Dashboard</button>
+            <button type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">Logout</button>
+        </div>
+    </div>
+</nav>
+
+
+<div>
+<form >
+    <div class="search mb-3">
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search Employee">
+  </div>
+    <div class="but"><button type="submit" class="btn btn-primary">Search</button></div>
+  
+</form>
+</div>
+<br><br>
+<h5>Admins</h5>
+
+<table class="table mt-3  table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Email ID</th>
+            <th scope="col" style="text-align:center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tutorial of tutorialsAdmin; let i = index">
+        <td>{{tutorial.eid}}</td>
+        <td>{{tutorial.name}}</td>
+        <td>{{tutorial.email}}</td>
+        <td>
+            <button (click)= "hrEmployee(tutorial)" type="button" class="btn btn-success mx-5">Transfer to HR</button>
+            <button (click)= "onEdit(tutorial)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+            <button (click)= "deleteEmployee(tutorial)" class="btn btn-danger mx-3">Delete</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h5>HR</h5>
+<table class="table mt-3  table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Email ID</th>
+            <th scope="col" style="text-align:center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tutorial of tutorialsHr; let i = index">
+            <td>{{tutorial.eid}}</td>
+            <td>{{tutorial.name}}</td>
+            <td>{{tutorial.email}}</td>
+            <td>
+                <button (click)= "adminEmployee(tutorial)" type="button" class="btn btn-success mx-5">Transfer to Admin</button>
+                <button (click)= "onEdit(tutorial)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+                <button (click)= "deleteEmployee(tutorial)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formValue">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Employee Id</label>
+                  <input type="number" formControlName="eid" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  
+                </div>
+                
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Employee Name</label>
+                  <input type="text" formControlName="name" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Email Id</label>
+                    <input type="email" formControlName="email" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="input-group mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01">Select Role</label>
+                  <select formControlName="admin" class="form-select" id="inputGroupSelect01">
+                    <option value="0">HR</option>
+                    <option value="1">Admin</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" formControlName="password" class="form-control" id="password">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                    <input type="password" formControlName="cpassword" class="form-control" id="confirm_password">
+                </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" *ngIf= "showAdd" (click)= "postEmployeeDetails()" class="btn btn-primary">Add</button>
+          <button type="button" *ngIf= "showUpdate" (click)= "updateEmployeeDetails()" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure want to Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button (click)= "logout()" routerLink="/login" type="button" class="btn btn-success mx+20">Yes</button>
+        <button type="button" class="btn btn-danger mx-20" data-bs-dismiss="modal">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
