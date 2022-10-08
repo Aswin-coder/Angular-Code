@@ -1,149 +1,310 @@
-
-<div class="full">
-<nav class="navbar navbar-light bg-primary" >
+<div>
+  <nav class="navbar navbar-light bg-primary">
     <div class="container-fluid">
-        <h1 style="color: white;">ESD Monitoring</h1>
-        <div class="d-flex">
-          <button type="button" class="btn btn-info mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal1ex">Export Data</button>
-            <button *ngIf="showAdmin" routerLink="/manage" type="button" class="btn btn-success">Admin Panel</button>
-            <button *ngIf="!showAdmin" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal1ad">Admin Panel</button>
-            <button type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">Logout</button>
-        </div>
-        
+      <h1 style="color: white;">ESD Monitoring</h1>
+      <div class="d-flex">
+        <button
+          type="button"
+          class="btn btn-info mx-3"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal1ex"
+        >
+          Export Data
+        </button>
+        <button
+          *ngIf="showAdmin"
+          routerLink="/manage"
+          type="button"
+          class="btn btn-success"
+        >
+          Admin Panel
+        </button>
+        <button
+          *ngIf="!showAdmin"
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal1ad"
+        >
+          Admin Panel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger mx-3"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal1"
+        >
+          Logout
+        </button>
+      </div>
     </div>
-    
-</nav>
+  </nav>
 
+  <p style="text-align:right">Welcome {{ tutorialsCurrent[0].cname }}</p>
 
-<p style="text-align:right">Welcome {{tutorialsCurrent[0].cname}}</p>
-
-<form >
-  <div class="search mb-3">
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Search Employee">
-</div>
-  <div class="but"><button type="submit" class="btn btn-primary">Search</button></div>
-
-</form>
-<br><br>
-<table class="table mt-3 table-bordered ">
+  <form>
+    <div class="search mb-3">
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Search Employee"
+      />
+    </div>
+    <div class="but">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <br /><br />
+  <table class="table mt-3 table-bordered">
     <thead>
-        <tr>
-            <th scope="col" style="text-align:center ;">Employee ID</th>
-            <th scope="col" style="text-align:center ;" >Employee Name</th>
-            <th scope="col"  style="text-align:center ;">RFID Number</th>
-            <th scope="col"  style="text-align:center ;">ESD Test Status</th>
-            <th scope="col"  style="text-align:center ;">ESD Test Time</th>
-            <th scope="col"  style="text-align:center ;">Test Date</th>
-            <th scope="col"  style="text-align:center ;">Temperature</th>
-        </tr>
+      <tr>
+        <th scope="col" style="text-align:center ;">Employee ID</th>
+        <th scope="col" style="text-align:center ;">Employee Name</th>
+        <th scope="col" style="text-align:center ;">RFID Number</th>
+        <th scope="col" style="text-align:center ;">ESD Test Status</th>
+        <th scope="col" style="text-align:center ;">ESD Test Time</th>
+        <th scope="col" style="text-align:center ;">Test Date</th>
+        <th scope="col" style="text-align:center ;">Temperature</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor= "let tutorial of tutorials; let i = index">
-            <td>{{tutorial.eid}}</td>
-            <td>{{tutorial.name}}</td>
-            <td>{{tutorial.rfid}}</td>
-            <td style="color: green;">{{tutorial.test}}</td>
-            <td>{{tutorial.time}}</td>
-            <td>{{tutorial.date}}</td>
-            <td>{{tutorial.temp}} °C</td>
-        </tr>
+      <tr *ngFor="let tutorial of tutorials; let i = index">
+        <td>{{ tutorial.eid }}</td>
+        <td>{{ tutorial.name }}</td>
+        <td>{{ tutorial.rfid }}</td>
+        <td style="color: green;">{{ tutorial.test }}</td>
+        <td>{{ tutorial.time }}</td>
+        <td>{{ tutorial.date }}</td>
+        <td>{{ tutorial.temp }} °C</td>
+      </tr>
     </tbody>
-</table>
+  </table>
 
-
-  
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
         </div>
         <div class="modal-body">
-            <form [formGroup]="formValue">
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">Employee Id</label>
-                  <input type="text" formControlName="eid" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                  
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label">Employee Name</label>
-                  <input type="text" formControlName="lastName" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Email Id</label>
-                    <input type="email" formControlName="email" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Mobile No.</label>
-                    <input type="text" formControlName="mobile" class="form-control" id="exampleInputPassword1">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Salary</label>
-                    <input type="text" formControlName="salary" class="form-control" id="exampleInputPassword1">
-                </div>
-
-              </form>
+          <form [formGroup]="formValue">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Employee Id</label
+              >
+              <input
+                type="text"
+                formControlName="eid"
+                class="form-control"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Employee Name</label
+              >
+              <input
+                type="text"
+                formControlName="lastName"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Email Id</label
+              >
+              <input
+                type="email"
+                formControlName="email"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Mobile No.</label
+              >
+              <input
+                type="text"
+                formControlName="mobile"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Salary</label
+              >
+              <input
+                type="text"
+                formControlName="salary"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" *ngIf= "showAdd" (click)= "postEmployeeDetails()" class="btn btn-primary">Add</button>
-          <button type="button" *ngIf= "showUpdate" (click)= "updateEmployeeDetails()" class="btn btn-primary">Update</button>
+          <button
+            type="button"
+            id="cancel"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            *ngIf="showAdd"
+            (click)="postEmployeeDetails()"
+            class="btn btn-primary"
+          >
+            Add
+          </button>
+          <button
+            type="button"
+            *ngIf="showUpdate"
+            (click)="updateEmployeeDetails()"
+            class="btn btn-primary"
+          >
+            Update
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure want to Logout</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-footer">
-        <button (click)= "logout()" routerLink="/login" type="button" class="btn btn-success mx+20">Yes</button>
-        <button type="button" class="btn btn-danger mx-20" data-bs-dismiss="modal">No</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal1ad" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Only Admins can access this page!</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary mx-20" data-bs-dismiss="modal">Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal1ex" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Select the date to export the data</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger mx-20" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success mx-20" data-bs-dismiss="modal">Export</button>
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal1"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Are you sure want to Logout
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button
+            (click)="logout()"
+            routerLink="/login"
+            type="button"
+            class="btn btn-success mx+20"
+          >
+            Yes
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger mx-20"
+            data-bs-dismiss="modal"
+          >
+            No
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal1ad"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Only Admins can access this page!
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary mx-20"
+            data-bs-dismiss="modal"
+          >
+            Ok
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="exampleModal1ex"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">
+            Select the date to export the data
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger mx-20"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn btn-success mx-20"
+            data-bs-dismiss="modal"
+          >
+            Export
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
